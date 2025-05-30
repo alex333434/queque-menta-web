@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queque de Menta - Propiedades y Beneficios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .edit-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .edit-btn:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '🌿';
+            position: absolute;
+            font-size: 100px;
+            top: 20px;
+            left: 40px;
+            opacity: 0.3;
+        }
+
+        .header::after {
+            content: '🧁';
+            position: absolute;
+            font-size: 100px;
+            top: 20px;
+            right: 40px;
+            opacity: 0.3;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section.mint {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-left: 5px solid #4CAF50;
+        }
+
+        .section.cake {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 5px solid #FF9800;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            text-align: justify;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .property-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #4CAF50;
+            transition: transform 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .property-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .property-text {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .password-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .password-input {
+            padding: 12px 20px;
+            font-size: 18px;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #45a049;
+        }
+
+        .edit-form {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .form-textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .footer {
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="edit-btn" onclick="openEditModal()">✏️</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="title" id="main-title">Queque de Menta</h1>
+            <p class="subtitle" id="main-subtitle">Delicioso postre con propiedades aromáticas y digestivas</p>
+        </div>
+
+        <div class="content">
+            <div class="section mint">
+                <h2 class="section-title">
+                    🌿 Propiedades de la Menta
+                </h2>
+                <p class="section-text" id="mint-text">
+                    La menta es una planta aromática con múltiples beneficios para la salud. Rica en mentol, ofrece propiedades refrescantes, digestivas y antiespasmódicas. Su aroma característico estimula los sentidos y puede ayudar a mejorar la concentración. Además, la menta contiene antioxidantes naturales que contribuyen al bienestar general del organismo.
+                </p>
+
+                <div class="properties-grid">
+                    <div class="property-card">
+                        <h3 class="property-title">Propiedades Digestivas</h3>
+                        <p class="property-text" id="digestive-text">Ayuda a aliviar molestias estomacales, reduce la inflamación intestinal y estimula la producción de enzimas digestivas.</p>
+                    </div>
+                    <div class="property-card">
+                        <h3 class="property-title">Efecto Refrescante</h3>
+                        <p class="property-text" id="refreshing-text">El mentol proporciona una sensación de frescura natural que puede aliviar dolores de cabeza y mejorar la respiración.</p>
+                    </div>
+                    <div class="property-card">
+                        <h3 class="property-title">Propiedades Antioxidantes</h3>
+                        <p class="property-text" id="antioxidant-text">Contiene compuestos que ayudan a combatir los radicales libres y protegen las células del daño oxidativo.</p>
+                    </div>
+                    <div class="property-card">
+                        <h3 class="property-title">Beneficios Aromáticos</h3>
+                        <p class="property-text" id="aromatic-text">Su aroma puede reducir el estrés, mejorar el estado de ánimo y estimular la función cognitiva.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section cake">
+                <h2 class="section-title">
+                    🧁 Beneficios del Queque de Menta
+                </h2>
+                <p class="section-text" id="cake-text">
+                    El queque de menta combina la suavidad y el sabor tradicional del bizcocho con las propiedades beneficiosas de la menta. Este postre no solo satisface el paladar, sino que también puede ofrecer efectos digestivos suaves después de las comidas. Su textura esponjosa y su sabor refrescante lo convierten en una opción ideal para cualquier ocasión especial.
+                </p>
+
+                <div class="properties-grid">
+                    <div class="property-card">
+                        <h3 class="property-title">Digestión Suave</h3>
+                        <p class="property-text" id="cake-digestive-text">La menta en el queque puede ayudar a facilitar la digestión después de comidas pesadas.</p>
+                    </div>
+                    <div class="property-card">
+                        <h3 class="property-title">Experiencia Sensorial</h3>
+                        <p class="property-text" id="sensory-text">Combina texturas suaves con el aroma refrescante que estimula múltiples sentidos.</p>
+                    </div>
+                    <div class="property-card">
+                        <h3 class="property-title">Versatilidad</h3>
+                        <p class="property-text" id="versatility-text">Perfecto para acompañar con té, café o como postre independiente en cualquier momento del día.</p>
+                    </div>
+                    <div class="property-card">
+                        <h3 class="property-title">Bienestar</h3>
+                        <p class="property-text" id="wellness-text">Aporta una sensación de frescura y bienestar que puede mejorar el estado de ánimo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🌿 El queque de menta: donde la tradición repostera se encuentra con los beneficios naturales 🧁</p>
+        </div>
+    </div>
+
+    <!-- Modal para edición -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Contenido</h2>
+                <span class="close" onclick="closeEditModal()">&times;</span>
+            </div>
+            
+            <div class="password-section" id="passwordSection">
+                <h3>Ingresa la contraseña para editar:</h3>
+                <input type="password" id="passwordInput" class="password-input" placeholder="Contraseña">
+                <br>
+                <button class="btn" onclick="checkPassword()">Verificar</button>
+            </div>
+
+            <div class="edit-form" id="editForm">
+                <div class="form-group">
+                    <label class="form-label">Título Principal:</label>
+                    <input type="text" id="editTitle" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Subtítulo:</label>
+                    <input type="text" id="editSubtitle" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Texto sobre la Menta:</label>
+                    <textarea id="editMintText" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Propiedades Digestivas:</label>
+                    <textarea id="editDigestive" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Efecto Refrescante:</label>
+                    <textarea id="editRefreshing" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Propiedades Antioxidantes:</label>
+                    <textarea id="editAntioxidant" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Beneficios Aromáticos:</label>
+                    <textarea id="editAromatic" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Texto sobre el Queque:</label>
+                    <textarea id="editCakeText" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Digestión Suave del Queque:</label>
+                    <textarea id="editCakeDigestive" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Experiencia Sensorial:</label>
+                    <textarea id="editSensory" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Versatilidad:</label>
+                    <textarea id="editVersatility" class="form-textarea"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Bienestar:</label>
+                    <textarea id="editWellness" class="form-textarea"></textarea>
+                </div>
+                
+                <button class="btn" onclick="saveChanges()">Guardar Cambios</button>
+                <button class="btn" onclick="closeEditModal()" style="background: #f44336;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openEditModal() {
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+            document.getElementById('passwordSection').style.display = 'block';
+            document.getElementById('editForm').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === '8712') {
+                document.getElementById('passwordSection').style.display = 'none';
+                document.getElementById('editForm').style.display = 'block';
+                loadCurrentContent();
+            } else {
+                alert('Contraseña incorrecta');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        function loadCurrentContent() {
+            document.getElementById('editTitle').value = document.getElementById('main-title').textContent;
+            document.getElementById('editSubtitle').value = document.getElementById('main-subtitle').textContent;
+            document.getElementById('editMintText').value = document.getElementById('mint-text').textContent;
+            document.getElementById('editDigestive').value = document.getElementById('digestive-text').textContent;
+            document.getElementById('editRefreshing').value = document.getElementById('refreshing-text').textContent;
+            document.getElementById('editAntioxidant').value = document.getElementById('antioxidant-text').textContent;
+            document.getElementById('editAromatic').value = document.getElementById('aromatic-text').textContent;
+            document.getElementById('editCakeText').value = document.getElementById('cake-text').textContent;
+            document.getElementById('editCakeDigestive').value = document.getElementById('cake-digestive-text').textContent;
+            document.getElementById('editSensory').value = document.getElementById('sensory-text').textContent;
+            document.getElementById('editVersatility').value = document.getElementById('versatility-text').textContent;
+            document.getElementById('editWellness').value = document.getElementById('wellness-text').textContent;
+        }
+
+        function saveChanges() {
+            document.getElementById('main-title').textContent = document.getElementById('editTitle').value;
+            document.getElementById('main-subtitle').textContent = document.getElementById('editSubtitle').value;
+            document.getElementById('mint-text').textContent = document.getElementById('editMintText').value;
+            document.getElementById('digestive-text').textContent = document.getElementById('editDigestive').value;
+            document.getElementById('refreshing-text').textContent = document.getElementById('editRefreshing').value;
+            document.getElementById('antioxidant-text').textContent = document.getElementById('editAntioxidant').value;
+            document.getElementById('aromatic-text').textContent = document.getElementById('editAromatic').value;
+            document.getElementById('cake-text').textContent = document.getElementById('editCakeText').value;
+            document.getElementById('cake-digestive-text').textContent = document.getElementById('editCakeDigestive').value;
+            document.getElementById('sensory-text').textContent = document.getElementById('editSensory').value;
+            document.getElementById('versatility-text').textContent = document.getElementById('editVersatility').value;
+            document.getElementById('wellness-text').textContent = document.getElementById('editWellness').value;
+            
+            alert('Cambios guardados exitosamente!');
+            closeEditModal();
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('editModal');
+            if (event.target == modal) {
+                closeEditModal();
+            }
+        }
+    </script>
+</body>
+</html>
