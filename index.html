@@ -50,6 +50,28 @@
             transform: scale(1.1);
         }
 
+        .add-btn {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #FF9800;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .add-btn:hover {
+            background: #f57c00;
+            transform: scale(1.1);
+        }
+
         .header {
             background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
             color: white;
@@ -140,10 +162,30 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border-top: 4px solid #4CAF50;
             transition: transform 0.3s ease;
+            position: relative;
         }
 
         .property-card:hover {
             transform: translateY(-5px);
+        }
+
+        .delete-card-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .property-card:hover .delete-card-btn {
+            display: block;
         }
 
         .property-title {
@@ -285,6 +327,7 @@
 </head>
 <body>
     <button class="edit-btn" onclick="openEditModal()">✏️</button>
+    <button class="add-btn" onclick="openAddModal()" title="Agregar nueva tarjeta">➕</button>
     
     <div class="container">
         <div class="header">
@@ -301,20 +344,24 @@
                     La menta es una planta aromática con múltiples beneficios para la salud. Rica en mentol, ofrece propiedades refrescantes, digestivas y antiespasmódicas. Su aroma característico estimula los sentidos y puede ayudar a mejorar la concentración. Además, la menta contiene antioxidantes naturales que contribuyen al bienestar general del organismo.
                 </p>
 
-                <div class="properties-grid">
+                <div class="properties-grid" id="mint-properties">
                     <div class="property-card">
+                        <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
                         <h3 class="property-title">Propiedades Digestivas</h3>
                         <p class="property-text" id="digestive-text">Ayuda a aliviar molestias estomacales, reduce la inflamación intestinal y estimula la producción de enzimas digestivas.</p>
                     </div>
                     <div class="property-card">
+                        <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
                         <h3 class="property-title">Efecto Refrescante</h3>
                         <p class="property-text" id="refreshing-text">El mentol proporciona una sensación de frescura natural que puede aliviar dolores de cabeza y mejorar la respiración.</p>
                     </div>
                     <div class="property-card">
+                        <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
                         <h3 class="property-title">Propiedades Antioxidantes</h3>
                         <p class="property-text" id="antioxidant-text">Contiene compuestos que ayudan a combatir los radicales libres y protegen las células del daño oxidativo.</p>
                     </div>
                     <div class="property-card">
+                        <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
                         <h3 class="property-title">Beneficios Aromáticos</h3>
                         <p class="property-text" id="aromatic-text">Su aroma puede reducir el estrés, mejorar el estado de ánimo y estimular la función cognitiva.</p>
                     </div>
@@ -329,20 +376,24 @@
                     El queque de menta combina la suavidad y el sabor tradicional del bizcocho con las propiedades beneficiosas de la menta. Este postre no solo satisface el paladar, sino que también puede ofrecer efectos digestivos suaves después de las comidas. Su textura esponjosa y su sabor refrescante lo convierten en una opción ideal para cualquier ocasión especial.
                 </p>
 
-                <div class="properties-grid">
+                <div class="properties-grid" id="cake-properties">
                     <div class="property-card">
+                        <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
                         <h3 class="property-title">Digestión Suave</h3>
                         <p class="property-text" id="cake-digestive-text">La menta en el queque puede ayudar a facilitar la digestión después de comidas pesadas.</p>
                     </div>
                     <div class="property-card">
+                        <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
                         <h3 class="property-title">Experiencia Sensorial</h3>
                         <p class="property-text" id="sensory-text">Combina texturas suaves con el aroma refrescante que estimula múltiples sentidos.</p>
                     </div>
                     <div class="property-card">
+                        <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
                         <h3 class="property-title">Versatilidad</h3>
                         <p class="property-text" id="versatility-text">Perfecto para acompañar con té, café o como postre independiente en cualquier momento del día.</p>
                     </div>
                     <div class="property-card">
+                        <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
                         <h3 class="property-title">Bienestar</h3>
                         <p class="property-text" id="wellness-text">Aporta una sensación de frescura y bienestar que puede mejorar el estado de ánimo.</p>
                     </div>
@@ -352,6 +403,46 @@
 
         <div class="footer">
             <p>🌿 El queque de menta: donde la tradición repostera se encuentra con los beneficios naturales 🧁</p>
+        </div>
+    </div>
+
+    <!-- Modal para agregar nueva tarjeta -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Agregar Nueva Tarjeta</h2>
+                <span class="close" onclick="closeAddModal()">&times;</span>
+            </div>
+            
+            <div class="password-section" id="addPasswordSection">
+                <h3>Ingresa la contraseña para agregar:</h3>
+                <input type="password" id="addPasswordInput" class="password-input" placeholder="Contraseña">
+                <br>
+                <button class="btn" onclick="checkAddPassword()">Verificar</button>
+            </div>
+
+            <div class="edit-form" id="addForm">
+                <div class="form-group">
+                    <label class="form-label">Sección:</label>
+                    <select id="newCardSection" class="form-input">
+                        <option value="mint">Propiedades de la Menta</option>
+                        <option value="cake">Beneficios del Queque</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Título de la tarjeta:</label>
+                    <input type="text" id="newCardTitle" class="form-input" placeholder="Ej: Propiedades Calmantes">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Descripción:</label>
+                    <textarea id="newCardText" class="form-textarea" placeholder="Describe las propiedades o beneficios..."></textarea>
+                </div>
+                
+                <button class="btn" onclick="addNewCard()">Agregar Tarjeta</button>
+                <button class="btn" onclick="closeAddModal()" style="background: #f44336;">Cancelar</button>
+            </div>
         </div>
     </div>
 
@@ -449,6 +540,63 @@
             document.getElementById('passwordInput').value = '';
         }
 
+        function openAddModal() {
+            document.getElementById('addModal').style.display = 'block';
+        }
+
+        function closeAddModal() {
+            document.getElementById('addModal').style.display = 'none';
+            document.getElementById('addPasswordSection').style.display = 'block';
+            document.getElementById('addForm').style.display = 'none';
+            document.getElementById('addPasswordInput').value = '';
+            document.getElementById('newCardTitle').value = '';
+            document.getElementById('newCardText').value = '';
+        }
+
+        function checkAddPassword() {
+            const password = document.getElementById('addPasswordInput').value;
+            if (password === '8712') {
+                document.getElementById('addPasswordSection').style.display = 'none';
+                document.getElementById('addForm').style.display = 'block';
+            } else {
+                alert('Contraseña incorrecta');
+                document.getElementById('addPasswordInput').value = '';
+            }
+        }
+
+        function addNewCard() {
+            const section = document.getElementById('newCardSection').value;
+            const title = document.getElementById('newCardTitle').value;
+            const text = document.getElementById('newCardText').value;
+            
+            if (!title || !text) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            const targetGrid = document.getElementById(section === 'mint' ? 'mint-properties' : 'cake-properties');
+            
+            const newCard = document.createElement('div');
+            newCard.className = 'property-card';
+            newCard.innerHTML = `
+                <button class="delete-card-btn" onclick="deleteCard(this)">✕</button>
+                <h3 class="property-title">${title}</h3>
+                <p class="property-text">${text}</p>
+            `;
+            
+            targetGrid.appendChild(newCard);
+            
+            alert('¡Tarjeta agregada exitosamente!');
+            closeAddModal();
+        }
+
+        function deleteCard(button) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta tarjeta?')) {
+                const card = button.parentElement;
+                card.remove();
+            }
+        }
+
         function checkPassword() {
             const password = document.getElementById('passwordInput').value;
             if (password === '8712') {
@@ -496,9 +644,13 @@
 
         // Cerrar modal al hacer clic fuera de él
         window.onclick = function(event) {
-            const modal = document.getElementById('editModal');
-            if (event.target == modal) {
+            const editModal = document.getElementById('editModal');
+            const addModal = document.getElementById('addModal');
+            if (event.target == editModal) {
                 closeEditModal();
+            }
+            if (event.target == addModal) {
+                closeAddModal();
             }
         }
     </script>
